@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 class LocationInput extends StatefulWidget{
   @override
@@ -9,6 +10,13 @@ class LocationInput extends StatefulWidget{
 class _LocationInputState extends State<LocationInput> {
   String _previewImageUrl;                                        //utilizing google image will be created on the fly with url
 
+  Future<void> _getCurrentUserLocation() async{
+    final locData = await Location().getLocation();
+    print(locData.latitude);
+    print(locData.longitude);
+  }
+
+  @override
   Widget build(BuildContext context){
     return Column(
       children: [
@@ -38,7 +46,7 @@ class _LocationInputState extends State<LocationInput> {
                 icon: Icon(Icons.location_on),
                 label: Text('Current Location'),
                 textColor: Theme.of(context).primaryColor,
-                onPressed: (){},
+                onPressed: _getCurrentUserLocation,
             ),
             FlatButton.icon(
               icon: Icon(Icons.map),
