@@ -8,7 +8,9 @@ class DBHelper{
     return sql.openDatabase(path.join(dbPath, 'places.db'),       //to open the database if existing or create one if not there
       onCreate: (db, version) {                                              //on create will give the access to db & the current version of new db
         return db.execute('CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT, loc_lat REAL, loc_lng REAL, address TEXT)');
-      }, version: 1,);
+      },
+      version: 1,
+    );
   }
   static Future<void> insert(String table, Map<String, Object> data) async {
        final db = await DBHelper.database();

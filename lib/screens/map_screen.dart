@@ -51,11 +51,14 @@ class _MapScreenState extends State<MapScreen> {
           zoom: 16,
         ),
          onTap: widget.isSelecting ? _selectLocation : null,
-         markers: _pickedLocation == null ? null
+         markers: (_pickedLocation == null && widget.isSelecting) ? null        //since if isSelecting is false then marker should be already placed
              : {                                                   //we r using set since in a set every value is unique & cannot be repeated
             Marker(
                 markerId: MarkerId('m1'),
-                position: _pickedLocation,
+                position: _pickedLocation ?? LatLng(            //if our selecting mode is false then we will point marker at initial location
+                    widget.initialLocation.latitude,
+                    widget.initialLocation.longitude,
+                ),
             ),
          },
       ),
